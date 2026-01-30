@@ -1,66 +1,65 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import { useState, useCallback } from 'react';
+import { FlipClock } from '@/components/FlipClock';
+import { ClockBody } from '@/components/ClockBody';
+import { TimeSlider } from '@/components/TimeSlider';
+import { StartButton } from '@/components/StartButton';
+import { SessionCounter } from '@/components/SessionCounter';
+import { DateDisplay } from '@/components/DateDisplay';
+import { useTimer } from '@/hooks/useTimer';
+import { useSound } from '@/hooks/useSound';
+import { useSessionCount } from '@/hooks/useSessionCount';
+import styles from './page.module.css';
 
 export default function Home() {
+  const [duration, setDuration] = useState(25);
+  const { count, increment, isLoaded } = useSessionCount();
+  const { playChime } = useSound();
+
+  const handleComplete = useCallback(() => {
+    playChime();
+    increment();
+  }, [playChime, increment]);
+
+  const { state, remainingSeconds, start, stop } = useTimer(duration, handleComplete);
+
+  const isRunning = state === 'running';
+  const isCompleted = state === 'completed';
+  const sliderDisabled = isRunning || isCompleted;
+
+  // Determine what time to display
+  const displaySeconds = state === 'idle' ? duration * 60 : remainingSeconds;
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className={styles.page}>
+      {isLoaded && <SessionCounter count={count} />}
+      <DateDisplay />
+
+      <div className={styles.timerContainer}>
+        <div className={styles.clockSection}>
+          <ClockBody>
+            <FlipClock totalSeconds={displaySeconds} isPulsing={isCompleted} />
+          </ClockBody>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className={styles.controlsSection}>
+          <TimeSlider
+            value={duration}
+            min={5}
+            max={60}
+            disabled={sliderDisabled}
+            onChange={setDuration}
+          />
+
+          <StartButton
+            isRunning={isRunning}
+            isCompleted={isCompleted}
+            onStart={start}
+            onStop={stop}
+          />
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }

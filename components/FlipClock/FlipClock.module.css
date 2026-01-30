@@ -1,0 +1,190 @@
+.flipClock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.separator {
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--number-white);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 8px;
+}
+
+/* FlipPanel styles */
+.flipPanel {
+  display: flex;
+  gap: 4px;
+}
+
+/* FlipCard styles */
+.flipCard {
+  position: relative;
+  width: 60px;
+  height: 90px;
+  perspective: 300px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Static halves */
+.topHalf,
+.bottomHalf {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  background: var(--panel-black);
+  display: flex;
+  justify-content: center;
+  font-size: 64px;
+  font-weight: bold;
+  color: var(--number-white);
+}
+
+.topHalf {
+  top: 0;
+  align-items: flex-end;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid #333;
+  background: linear-gradient(180deg, var(--panel-black) 0%, var(--panel-dark) 100%);
+}
+
+.topHalf span {
+  transform: translateY(50%);
+}
+
+.bottomHalf {
+  bottom: 0;
+  align-items: flex-start;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(180deg, var(--panel-dark) 0%, var(--panel-black) 100%);
+}
+
+.bottomHalf span {
+  transform: translateY(-50%);
+}
+
+/* Flip animation elements */
+.flipTop,
+.flipBottom {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  font-size: 64px;
+  font-weight: bold;
+  color: var(--number-white);
+}
+
+.flipTop {
+  top: 0;
+  align-items: flex-end;
+  border-radius: 8px 8px 0 0;
+  transform-origin: bottom center;
+  background: linear-gradient(180deg, var(--panel-black) 0%, var(--panel-dark) 100%);
+  border-bottom: 1px solid #333;
+  z-index: 2;
+}
+
+.flipTop span {
+  transform: translateY(50%);
+}
+
+.flipBottom {
+  bottom: 0;
+  align-items: flex-start;
+  border-radius: 0 0 8px 8px;
+  transform-origin: top center;
+  transform: rotateX(180deg);
+  background: linear-gradient(180deg, var(--panel-dark) 0%, var(--panel-black) 100%);
+  z-index: 2;
+}
+
+.flipBottom span {
+  transform: translateY(-50%) rotateX(180deg);
+}
+
+/* Animations */
+.flipTopAnimation {
+  animation: flipTopDown 0.3s ease-in forwards;
+}
+
+.flipBottomAnimation {
+  animation: flipBottomDown 0.3s ease-out 0.3s forwards;
+}
+
+@keyframes flipTopDown {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes flipBottomDown {
+  0% {
+    transform: rotateX(180deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+/* Pulse animation for completion */
+.pulse {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+/* Shadow/depth effect on cards */
+.flipCard::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+  border-radius: 0 0 8px 8px;
+  pointer-events: none;
+}
+
+/* Center line decoration */
+.cardInner::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.5) 10%,
+    rgba(0, 0, 0, 0.5) 90%,
+    transparent 100%
+  );
+  transform: translateY(-50%);
+  z-index: 10;
+  pointer-events: none;
+}

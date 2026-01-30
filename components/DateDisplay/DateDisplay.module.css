@@ -1,0 +1,9 @@
+.dateDisplay {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #888;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}

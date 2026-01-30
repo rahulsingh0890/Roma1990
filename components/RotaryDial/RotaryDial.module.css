@@ -1,0 +1,116 @@
+.dialContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.dial {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(
+    145deg,
+    #f0f0f0 0%,
+    #d0d0d0 50%,
+    #b0b0b0 100%
+  );
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.8),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  position: relative;
+  user-select: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.dial:hover:not(.disabled) {
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.35),
+    0 3px 6px rgba(0, 0, 0, 0.25),
+    inset 0 2px 4px rgba(255, 255, 255, 0.8),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dial.dragging {
+  cursor: grabbing;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.25),
+    0 1px 2px rgba(0, 0, 0, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.8),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dial.disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Knob center cap */
+.dial::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(
+    145deg,
+    #e8e8e8 0%,
+    #c8c8c8 100%
+  );
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+/* Indicator notch */
+.indicator {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 4px;
+  height: 12px;
+  background: var(--clock-orange);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Value label */
+.valueLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  text-align: center;
+}
+
+/* Tick marks around dial */
+.tickMarks {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.tick {
+  position: absolute;
+  width: 2px;
+  height: 6px;
+  background: #999;
+  top: 0;
+  left: 50%;
+  transform-origin: center 44px;
+}
+
+.tick.major {
+  height: 8px;
+  background: #666;
+}

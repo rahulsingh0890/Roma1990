@@ -1,0 +1,105 @@
+.clockWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.clockBody {
+  background: var(--clock-orange);
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow:
+    /* Main shadow for depth */
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    0 10px 20px rgba(0, 0, 0, 0.2),
+    /* Bottom edge shadow for 3D lift */
+    0 4px 0 #c45a3a,
+    0 8px 0 #b04a2a,
+    /* Inner highlights */
+    inset 0 2px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+/* Matte finish effect */
+.clockBody::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  pointer-events: none;
+}
+
+/* Side edge highlight */
+.clockBody::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.displayArea {
+  background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 12px;
+  padding: 24px 32px 32px;
+  box-shadow:
+    inset 0 4px 16px rgba(0, 0, 0, 0.6),
+    inset 0 1px 4px rgba(0, 0, 0, 0.4),
+    0 2px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+/* Glass reflection on display */
+.displayArea::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.branding {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Desk shadow */
+.deskShadow {
+  width: 110%;
+  height: 25px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2) 0%, transparent 70%);
+  margin-top: 12px;
+  margin-left: -5%;
+  z-index: 0;
+}

@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Roma1990 - Retro Flip Clock Pomodoro Timer
 
-## Getting Started
+A beautiful Pomodoro timer styled after vintage TWEMCO flip clocks. Features a matte coral/orange body with "Roma1990" branding, smooth flip card countdown animation, and simple session tracking.
 
-First, run the development server:
+![Roma1990 Timer](src-tauri/icons/icon.png)
+
+## Features
+
+- Vintage flip clock aesthetic with smooth animations
+- Adjustable timer duration (5-60 minutes)
+- Session counter that persists daily
+- Completion chime notification
+- Clean, distraction-free interface
+
+## Download & Install (macOS)
+
+### Option 1: Download the DMG (Recommended)
+
+1. Go to the [Releases](../../releases) page
+2. Download `Roma1990_x.x.x_aarch64.dmg` (for Apple Silicon) or `Roma1990_x.x.x_x64.dmg` (for Intel)
+3. Open the DMG file
+4. Drag `Roma1990.app` to your Applications folder
+5. Double-click to launch!
+
+> **Note:** On first launch, macOS may show a security warning. Go to **System Preferences > Privacy & Security** and click "Open Anyway".
+
+### Option 2: Build from Source
+
+#### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or later)
+- [Rust](https://rustup.rs/) (latest stable)
+- Xcode Command Line Tools (`xcode-select --install`)
+
+#### Steps
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/the-pomodoro.git
+cd the-pomodoro
+
+# Install dependencies
+npm install
+
+# Build the macOS app
+npm run tauri:build
+
+# The app will be at:
+# src-tauri/target/release/bundle/macos/Roma1990.app
+```
+
+Copy `Roma1990.app` to your Applications folder.
+
+## Development
+
+### Run as Web App
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Run as Desktop App (Development Mode)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run tauri:dev
+```
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend:** Next.js 14, TypeScript, CSS Modules
+- **Desktop:** Tauri 2.0 (Rust)
+- **Audio:** Web Audio API
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Set Duration:** Use the slider to set your focus time (5-60 minutes)
+2. **Start Timer:** Click the green START button
+3. **Focus:** Watch the beautiful flip animation count down
+4. **Complete:** A chime plays when done, and your session is recorded
+5. **Stop Early:** Click STOP to reset the timer at any time
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+MIT License - feel free to use and modify!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+Made with love and tomatoes.
