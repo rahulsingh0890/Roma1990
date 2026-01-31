@@ -6,38 +6,26 @@ A beautiful Pomodoro timer styled after vintage TWEMCO flip clocks. Features a m
 
 ## Features
 
-- Vintage flip clock aesthetic with smooth animations
+- Vintage flip clock design with smooth animations
 - Adjustable timer duration (5-60 minutes)
 - Session counter that persists daily
 - Completion chime notification
 - Clean, distraction-free interface
 
-## Download & Install (macOS)
+## Install (macOS)
 
-### Option 1: Download the DMG (Recommended)
-
-1. Go to the [Releases](../../releases) page
-2. Download `Roma1990_x.x.x_aarch64.dmg` (for Apple Silicon) or `Roma1990_x.x.x_x64.dmg` (for Intel)
-3. Open the DMG file
-4. Drag `Roma1990.app` to your Applications folder
-5. Double-click to launch!
-
-> **Note:** On first launch, macOS may show a security warning. Go to **System Preferences > Privacy & Security** and click "Open Anyway".
-
-### Option 2: Build from Source
-
-#### Prerequisites
+### Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18 or later)
 - [Rust](https://rustup.rs/) (latest stable)
 - Xcode Command Line Tools (`xcode-select --install`)
 
-#### Steps
+### Build & Install
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/the-pomodoro.git
-cd the-pomodoro
+git clone https://github.com/rahulsingh0890/Roma1990.git
+cd Roma1990
 
 # Install dependencies
 npm install
@@ -45,11 +33,12 @@ npm install
 # Build the macOS app
 npm run tauri:build
 
-# The app will be at:
-# src-tauri/target/release/bundle/macos/Roma1990.app
-```
+# Copy to Applications
+cp -r src-tauri/target/release/bundle/macos/Roma1990.app /Applications/
 
-Copy `Roma1990.app` to your Applications folder.
+# Launch
+open /Applications/Roma1990.app
+```
 
 ## Development
 
