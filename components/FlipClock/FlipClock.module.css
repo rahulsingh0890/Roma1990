@@ -8,22 +8,23 @@
   font-size: 48px;
   font-weight: bold;
   color: var(--number-white);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   margin-bottom: 8px;
+  opacity: 0.9;
 }
 
 /* FlipPanel styles */
 .flipPanel {
   display: flex;
-  gap: 4px;
+  gap: 5px;
 }
 
-/* FlipCard styles */
+/* FlipCard styles - the physical card container */
 .flipCard {
   position: relative;
   width: 60px;
   height: 90px;
-  perspective: 300px;
+  perspective: 400px;
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -31,29 +32,43 @@
   position: relative;
   width: 100%;
   height: 100%;
+  border-radius: 6px;
+  /* Card casts shadow into the display cavity */
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Static halves */
+/* Static halves - with physical thickness appearance */
 .topHalf,
 .bottomHalf {
   position: absolute;
   width: 100%;
   height: 50%;
   overflow: hidden;
-  background: var(--panel-black);
   display: flex;
   justify-content: center;
   font-size: 64px;
   font-weight: bold;
   color: var(--number-white);
+  /* Subtle text shadow for depth */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .topHalf {
   top: 0;
   align-items: flex-end;
-  border-radius: 8px 8px 0 0;
-  border-bottom: 1px solid #333;
-  background: linear-gradient(180deg, var(--panel-black) 0%, var(--panel-dark) 100%);
+  border-radius: 6px 6px 0 0;
+  /* Gradient simulating light from above */
+  background: linear-gradient(180deg,
+    #2a2a2a 0%,
+    #1a1a1a 40%,
+    #151515 100%
+  );
+  /* Top edge catches light */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
 .topHalf span {
@@ -63,8 +78,17 @@
 .bottomHalf {
   bottom: 0;
   align-items: flex-start;
-  border-radius: 0 0 8px 8px;
-  background: linear-gradient(180deg, var(--panel-dark) 0%, var(--panel-black) 100%);
+  border-radius: 0 0 6px 6px;
+  /* Slightly lighter at top where it catches reflected light */
+  background: linear-gradient(180deg,
+    #1a1a1a 0%,
+    #141414 50%,
+    #0f0f0f 100%
+  );
+  /* Bottom edge in shadow */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
 }
 
 .bottomHalf span {
@@ -84,15 +108,22 @@
   font-size: 64px;
   font-weight: bold;
   color: var(--number-white);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .flipTop {
   top: 0;
   align-items: flex-end;
-  border-radius: 8px 8px 0 0;
+  border-radius: 6px 6px 0 0;
   transform-origin: bottom center;
-  background: linear-gradient(180deg, var(--panel-black) 0%, var(--panel-dark) 100%);
-  border-bottom: 1px solid #333;
+  background: linear-gradient(180deg,
+    #2a2a2a 0%,
+    #1a1a1a 40%,
+    #151515 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.3);
   z-index: 2;
 }
 
@@ -103,10 +134,14 @@
 .flipBottom {
   bottom: 0;
   align-items: flex-start;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 6px 6px;
   transform-origin: top center;
   transform: rotateX(180deg);
-  background: linear-gradient(180deg, var(--panel-dark) 0%, var(--panel-black) 100%);
+  background: linear-gradient(180deg,
+    #1a1a1a 0%,
+    #141414 50%,
+    #0f0f0f 100%
+  );
   z-index: 2;
 }
 
@@ -157,34 +192,63 @@
   }
 }
 
-/* Shadow/depth effect on cards */
-.flipCard::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
-  border-radius: 0 0 8px 8px;
-  pointer-events: none;
-}
-
-/* Center line decoration */
-.cardInner::after {
+/* Center hinge line - the split between cards */
+.cardInner::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(0, 0, 0, 0.5) 10%,
-    rgba(0, 0, 0, 0.5) 90%,
-    transparent 100%
+  height: 3px;
+  background: linear-gradient(180deg,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(40, 40, 40, 0.4) 100%
   );
   transform: translateY(-50%);
   z-index: 10;
   pointer-events: none;
+}
+
+/* Subtle highlight on hinge */
+.cardInner::after {
+  content: '';
+  position: absolute;
+  top: calc(50% + 1px);
+  left: 2px;
+  right: 2px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.04);
+  z-index: 11;
+  pointer-events: none;
+}
+
+/* Card edge thickness - visible on right side */
+.flipCard::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: -2px;
+  bottom: 2px;
+  width: 2px;
+  background: linear-gradient(180deg,
+    #1a1a1a 0%,
+    #0a0a0a 50%,
+    #1a1a1a 100%
+  );
+  border-radius: 0 2px 2px 0;
+  z-index: -1;
+}
+
+/* Bottom edge shadow for lifted appearance */
+.flipCard::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 4px;
+  right: 4px;
+  height: 6px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
 }

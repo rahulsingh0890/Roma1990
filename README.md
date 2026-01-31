@@ -1,8 +1,14 @@
 # Roma1990 - Retro Flip Clock Pomodoro Timer
 
+<p align="center">
+  <img src="logo.png" alt="Roma1990 Logo" width="150">
+</p>
+
 A beautiful Pomodoro timer styled after vintage TWEMCO flip clocks. Features a matte coral/orange body with "Roma1990" branding, smooth flip card countdown animation, and simple session tracking.
 
-![Roma1990 Timer](src-tauri/icons/icon.png)
+<p align="center">
+  <img src="Mockup.png" alt="Roma1990 App Preview" width="600">
+</p>
 
 ## Features
 
